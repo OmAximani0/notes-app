@@ -1,13 +1,19 @@
-import { Schema, SchemaTypes, model } from "mongoose";
+import { Schema, SchemaTypes, Model, model } from "mongoose";
 import { genSalt, hash } from "bcrypt";
 
-interface IUser {
+export interface IUser {
     name: string;
     email: string;
     password: string;
 }
 
-const userSchema: Schema = new Schema<IUser>({
+interface IUserMethods {
+    hashPassword(password: string): Promise<string>;
+}
+
+type UserModel = Model<IUser, {}, IUserMethods>;
+
+const userSchema: Schema = new Schema<IUser, UserModel, IUserMethods>({
     name: {
         type: SchemaTypes.String,
         required: [true, "Name is required!"],
@@ -20,16 +26,15 @@ const userSchema: Schema = new Schema<IUser>({
     password: {
         type: SchemaTypes.String,
         required: [true, "Passowrd is required!"],
-        minlength: [6, "Password should be at least 6 characters"]
     },
 });
 
-userSchema.method("hashPassword", async (password: string) => {
+userSchema.method("hashPassword", async function (password: string) {
     const salt = await genSalt(12);
     const hashedPassword = await hash(password, salt);
     return hashedPassword;
 });
 
-const userModel = model<IUser>("User", userSchema);
+const userModel = model<IUser, UserModel>("User", userSchema);
 
 export default userModel;
