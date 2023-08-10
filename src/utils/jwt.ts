@@ -26,7 +26,7 @@ export function decodeJWT(token: string) {
     }
     let payload: string | JwtPayload;
     try {
-        payload = verify(token, process.env.JWT_SECRET as Secret);
+        payload = verify(token, process.env.JWT_SECRET as Secret) as JwtPayload;
     } catch (error: any) {
         if (error instanceof TokenExpiredError) {
             throw new TokenExpiredError(
