@@ -4,12 +4,6 @@ import { Error } from "mongoose";
 import { signJWT } from "../utils/jwt";
 import { compare } from "bcrypt";
 
-type CustomResponse = {
-    error?: Array<string>;
-    message?: string;
-    token?: string;
-};
-
 export async function regsiterUser(req: Request, res: Response) {
     let response: CustomResponse = {};
 
