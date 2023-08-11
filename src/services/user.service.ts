@@ -3,12 +3,7 @@ import { User } from "../models";
 import { Error } from "mongoose";
 import { signJWT } from "../utils/jwt";
 import { compare } from "bcrypt";
-
-type CustomResponse = {
-    error?: Array<string>;
-    message?: string;
-    token?: string;
-};
+import { checkFields } from "../utils/helper";
 
 export async function regsiterUser(req: Request, res: Response) {
     let response: CustomResponse = {};
@@ -87,23 +82,4 @@ export async function loginUser(req: Request, res: Response) {
 
     response["error"] = ["Email with password not match"];
     return res.status(400).json(response);
-}
-
-// Helper Functions
-function checkFields(
-    body: object,
-    requiredFields: string[],
-    response: CustomResponse
-) {
-    for (let i = 0; i < requiredFields.length; i++) {
-        if (requiredFields[i] in body) {
-            continue;
-        } else {
-            if (!response["error"]) {
-                response["error"] = [`${requiredFields[i]} is required!`];
-            } else {
-                response["error"].push(`${requiredFields[i]} is required!`);
-            }
-        }
-    }
 }

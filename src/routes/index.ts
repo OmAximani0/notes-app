@@ -1,3 +1,4 @@
 import UserRouter from "./user.routes";
+import NoteRouter from "./note.routes";
 
-export { UserRouter };
+export { UserRouter, NoteRouter };

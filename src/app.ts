@@ -22,9 +22,10 @@ app.use(cors());
 app.use(express.json());
 
 // App routes
-import { UserRouter } from "./routes";
+import { UserRouter, NoteRouter } from "./routes";
 
 app.use("/api/user", UserRouter);
+app.use("/api/notes", NoteRouter);
 
 app.listen(PORT, (): void => {
     console.log(`[SERVER] Listening on port: http://localhost:${PORT}/`);
