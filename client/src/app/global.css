@@ -1,0 +1,13 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+:root {
+    --primary-color: #FAFAFA;
+    --secondary-color: #0077C0;
+    --black: #1D242B;
+    --black75: rgba(29, 36, 43, 75%);
+    --black50: rgba(29, 36, 43, 50%);
+    --black25: rgba(29, 36, 43, 25%);
+}
